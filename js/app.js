@@ -71,6 +71,7 @@
 
 
 "use strict";
+
 console.log("Movie App starter...");
 
 const movies = [
@@ -78,6 +79,7 @@ const movies = [
     title: "Inception",
     year: 2010,
     rating: 8.8,
+    image: "https://www.imdb.com/title/tt1375666/mediaviewer/rm3426651392/?ref_=tt_ov_i",
   },
   {
     title: "The Matrix",
@@ -97,24 +99,35 @@ const movies = [
 ];
 
 const movieList = document.querySelector("#movie-list");
-console.log(movieList);
+
+showMovies();
 
 function showMovies() {
   movieList.innerHTML = "";
 
   for (const movie of movies) {
-    const html = /* html */ `
-      <article class="movie-card">
-        <div class="movie-info">
-          <h3>${movie.title}</h3>
-          <p>År: ${movie.year}</p>
-          <p>Rating: ${movie.rating}</p>
-        </div>
-      </article>
-    `;
-
-    movieList.insertAdjacentHTML("beforeend", html);
+    showMovie(movie);
   }
 }
+
+function showMovie(movie) {
+  const html = /* html */ `
+    <article class="movie-card">
+      <div class="movie-info">
+        <h3>${movie.title}</h3>
+        <p>År: ${movie.year}</p>
+        <p>Rating: ${movie.rating}</p>
+      </div>
+    </article>
+  `;
+
+  movieList.insertAdjacentHTML("beforeend", html);
+}
+
+movies.push({
+  title: "Pulp Fiction",
+  year: 1994,
+  rating: 8.9,
+});
 
 showMovies();
