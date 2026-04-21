@@ -74,35 +74,29 @@
 
 console.log("Movie App starter...");
 
-const movies = [
-  {
-    title: "Inception",
-    year: 2010,
-    rating: 8.8,
-    image: "https://www.imdb.com/title/tt1375666/mediaviewer/rm3426651392/?ref_=tt_ov_i",
-  },
-  {
-    title: "The Matrix",
-    year: 1999,
-    rating: 8.7,
-  },
-  {
-    title: "Interstellar",
-    year: 2014,
-    rating: 8.6,
-  },
-  {
-    title: "The Dark Knight",
-    year: 2008,
-    rating: 9.0,
-  },
-];
-
+const MOVIES_URL =
+  "https://raw.githubusercontent.com/cederdorff/race/refs/heads/master/data/movies.json";
+let allMovies = [];
 const movieList = document.querySelector("#movie-list");
 
-showMovies();
+fetchMovies();
 
-function showMovies() {
+async function fetchMovies() {
+  console.log("Henter film data...");
+
+  const response = await fetch(MOVIES_URL);
+  allMovies = await response.json();
+
+  console.log("Hentet", allMovies.length, "film!");
+  console.log("Første film:", allMovies[0]);
+  console.log("Alle film:", allMovies);
+
+  showMovies(allMovies);
+}
+
+showMovies(movies);
+
+function showMovies(movies) {
   movieList.innerHTML = "";
 
   for (const movie of movies) {
@@ -113,9 +107,9 @@ function showMovies() {
 function showMovie(movie) {
   const html = /* html */ `
     <article class="movie-card">
+      <img class="movie-image" src="${movie.image}" alt="${movie.title}">
       <div class="movie-info">
-        <h3>${movie.title}</h3>
-        <p>År: ${movie.year}</p>
+        <h3>${formatMovieTitle(movie.title, movie.year)}</h3>
         <p>Rating: ${movie.rating}</p>
       </div>
     </article>
@@ -124,10 +118,8 @@ function showMovie(movie) {
   movieList.insertAdjacentHTML("beforeend", html);
 }
 
-movies.push({
-  title: "Pulp Fiction",
-  year: 1994,
-  rating: 8.9,
-});
+function formatMovieTitle(title, year) {
+  return `${title} (${year})`;
+}
 
-showMovies();
+console.log(formatMovieTitle("Inception", 2010));
