@@ -99,16 +99,22 @@ const movies = [
 const movieList = document.querySelector("#movie-list");
 console.log(movieList);
 
-for (const movie of movies) {
-  const html = /* html */ `
-    <article class="movie-card">
-      <div class="movie-info">
-        <h3>${movie.title}</h3>
-        <p>År: ${movie.year}</p>
-        <p>Rating: ${movie.rating}</p>
-      </div>
-    </article>
-  `;
+function showMovies() {
+  movieList.innerHTML = "";
 
-  movieList.insertAdjacentHTML("beforeend", html);
+  for (const movie of movies) {
+    const html = /* html */ `
+      <article class="movie-card">
+        <div class="movie-info">
+          <h3>${movie.title}</h3>
+          <p>År: ${movie.year}</p>
+          <p>Rating: ${movie.rating}</p>
+        </div>
+      </article>
+    `;
+
+    movieList.insertAdjacentHTML("beforeend", html);
+  }
 }
+
+showMovies();
